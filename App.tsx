@@ -1,20 +1,26 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import './src/i18n/config';
+import { CurrencyProvider } from './src/contexts/CurrencyContext';
+import { ThemeProvider, useTheme } from './src/contexts/ThemeContext';
+import { HomeScreen } from './src/screens/HomeScreen';
+
+const AppContent = () => {
+  const { isDark } = useTheme();
+  return (
+    <>
+      <HomeScreen />
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+    </>
+  );
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+    <CurrencyProvider>
+        <AppContent />
+    </CurrencyProvider>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
